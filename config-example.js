@@ -35,7 +35,9 @@ var server = http.createServer(function (req, res) {
 
       if (payload.token == outgoingToken) {
         var ircMsg = "Slackis " + payload.user_name + " sano: " + payload.text;
-        slackbot.speak('#nakkiperse', ircMsg);
+        if (payload.user_name !== 'slackbot') {
+            slackbot.speak('#nakkiperse', ircMsg);
+        }
       }
     });
   } else {
