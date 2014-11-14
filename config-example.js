@@ -34,7 +34,7 @@ var server = http.createServer(function (req, res) {
       var payload = querystring.parse(data.toString());
 
       if (payload.token == outgoingToken) {
-        var ircMsg = "Slackis " + payload.user_name + " sano: " + payload.text;
+        var ircMsg = "#" + payload.channel_name + " <" + payload.user_name + "> " + payload.text;
         if (payload.user_name !== 'slackbot') {
             slackbot.speak('#nakkiperse', ircMsg);
         }
