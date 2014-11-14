@@ -1,16 +1,23 @@
 var slackbot = require('./lib/bot');
 var http = require('http');
 var querystring = require('querystring');
+var incomingToken = '';
+var outgoingToken = '';
+var organization = 'swaeg';
 
 var config = {
-    server: 'irc.freenode.com',
-    nick: 'slackbot',
-    username: 'slackbot-username',
-    token: process.env.SLACK_INCOMING_TOKEN,
+    organization: organization,
+    server: 'irc.nerim.fr',
+    nick: 'HAL2110i',
+    username: 'HAL2110i',
+    token: incomingToken,
     channels: {
-        '#noisebridge': '#irc'
+        '#nakkiperse': '#random'
     },
     users: {
+	'~tra': 'tra',
+	'tra': 'tra',
+	'toiminto': 'toiminto'
     },
     // optionals
     floodProtection: true,
@@ -25,11 +32,10 @@ var server = http.createServer(function (req, res) {
   if (req.method == 'POST') {
     req.on('data', function(data) {
       var payload = querystring.parse(data.toString());
-      if (payload.token == process.env.SLACK_OUTGOING_TOKEN) {
-        console.log('valid post from slack!');
-        var ircMsg = payload.user_name + " says:" + payload.text.slice(4);
-        console.log("attempt to post to irc: ", ircMsg);
-        slackbot.speak('#noisebridge', ircMsg);
+
+      if (payload.token == outgoingToken) {
+        var ircMsg = "Slackis " + payload.user_name + " sano: " + payload.text;
+        slackbot.speak('#nakkiperse', ircMsg);
       }
     });
   } else {
