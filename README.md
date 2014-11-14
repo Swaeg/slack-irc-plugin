@@ -2,6 +2,9 @@
 
 IRC integration with [slack](http://slack.com).
 
+## TODO
+Make this file up to date.
+
 ## Usage
 
 ```javascript
